@@ -20,7 +20,12 @@ class Wine {
       fs.createReadStream(file_name)
         .pipe(csv())
         .on("data", (row) => {
-          this.dataset.push(row);
+          let _row = {
+            ...row,
+            year: parseInt(row.year) || row.year,
+            price: parseInt(row.price) || row.price,
+          };
+          this.dataset.push(_row);
         })
         .on("end", () => {
           console.log("CSV file successfully loaded!");

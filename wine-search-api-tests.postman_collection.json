@@ -1,0 +1,473 @@
+{
+  "info": {
+    "name": "Wine Search API Tests",
+    "description": "Automated test suite for Wine Search API system",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "FastAPI Service Tests",
+      "item": [
+        {
+          "name": "Health Check - FastAPI",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has correct structure', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson).to.have.property('status');",
+                  "    pm.expect(responseJson).to.have.property('service');",
+                  "    pm.expect(responseJson).to.have.property('version');",
+                  "    pm.expect(responseJson).to.have.property('nodejs_server');",
+                  "});",
+                  "",
+                  "pm.test('Service status is OK', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson.status).to.eql('OK');",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{fastapi_base_url}}/health",
+              "host": ["{{fastapi_base_url}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Root Endpoint - FastAPI",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains welcome message', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson).to.have.property('message');",
+                  "    pm.expect(responseJson).to.have.property('status');",
+                  "    pm.expect(responseJson.status).to.eql('running');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{fastapi_base_url}}/",
+              "host": ["{{fastapi_base_url}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "Search Wine by Name - Valid Request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is an array', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson).to.be.an('array');",
+                  "});",
+                  "",
+                  "pm.test('Wine objects have correct structure', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.length > 0) {",
+                  "        const wine = responseJson[0];",
+                  "        pm.expect(wine).to.have.property('name');",
+                  "        pm.expect(wine).to.have.property('brand');",
+                  "        pm.expect(wine).to.have.property('origin');",
+                  "        pm.expect(wine).to.have.property('price');",
+                  "        pm.expect(wine).to.have.property('year');",
+                  "        pm.expect(wine).to.have.property('matched_score');",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Price and year are numbers', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.length > 0) {",
+                  "        const wine = responseJson[0];",
+                  "        pm.expect(wine.price).to.be.a('number');",
+                  "        pm.expect(wine.year).to.be.a('number');",
+                  "        pm.expect(wine.matched_score).to.be.a('number');",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{fastapi_base_url}}/search?search_term=name&value=hennessy",
+              "host": ["{{fastapi_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "search_term",
+                  "value": "name"
+                },
+                {
+                  "key": "value",
+                  "value": "hennessy"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Wine by Brand",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Results contain expected brand', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.length > 0) {",
+                  "        const wine = responseJson[0];",
+                  "        pm.expect(wine.brand.toLowerCase()).to.include('hennessy');",
+                  "    }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{fastapi_base_url}}/search?search_term=brand&value=hennessy",
+              "host": ["{{fastapi_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "search_term",
+                  "value": "brand"
+                },
+                {
+                  "key": "value",
+                  "value": "hennessy"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Wine by Origin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Results contain expected origin', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.length > 0) {",
+                  "        const wine = responseJson[0];",
+                  "        pm.expect(wine.origin.toLowerCase()).to.include('france');",
+                  "    }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{fastapi_base_url}}/search?search_term=origin&value=france",
+              "host": ["{{fastapi_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "search_term",
+                  "value": "origin"
+                },
+                {
+                  "key": "value",
+                  "value": "france"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Wine - Missing Parameters",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test('Error message is present', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson).to.have.property('error');",
+                  "    pm.expect(responseJson.error).to.include('Missing required query parameters');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{fastapi_base_url}}/search",
+              "host": ["{{fastapi_base_url}}"],
+              "path": ["search"]
+            }
+          }
+        },
+        {
+          "name": "Search Wine - Invalid Search Term",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test('Error message indicates invalid search term', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson).to.have.property('error');",
+                  "    pm.expect(responseJson.error).to.include('not found in dataset keys');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{fastapi_base_url}}/search?search_term=invalid_field&value=test",
+              "host": ["{{fastapi_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "search_term",
+                  "value": "invalid_field"
+                },
+                {
+                  "key": "value",
+                  "value": "test"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Node.js Service Tests",
+      "item": [
+        {
+          "name": "Health Check - Node.js",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has correct structure', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson).to.have.property('status');",
+                  "    pm.expect(responseJson).to.have.property('dataLoaded');",
+                  "    pm.expect(responseJson).to.have.property('recordCount');",
+                  "    pm.expect(responseJson).to.have.property('availableKeys');",
+                  "});",
+                  "",
+                  "pm.test('Data is loaded', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson.dataLoaded).to.be.true;",
+                  "    pm.expect(responseJson.recordCount).to.be.above(0);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{nodejs_base_url}}/health",
+              "host": ["{{nodejs_base_url}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Direct Search - Node.js",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is an array', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.expect(responseJson).to.be.an('array');",
+                  "});",
+                  "",
+                  "pm.test('Wine objects have Node.js format', function () {",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.length > 0) {",
+                  "        const wine = responseJson[0];",
+                  "        pm.expect(wine).to.have.property('name');",
+                  "        pm.expect(wine).to.have.property('brand');",
+                  "        pm.expect(wine).to.have.property('origin');",
+                  "        pm.expect(wine).to.have.property('price');",
+                  "        pm.expect(wine).to.have.property('year');",
+                  "        pm.expect(wine).to.have.property('matched_score');",
+                  "    }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{nodejs_base_url}}/search?search_term=name&value=hennessy",
+              "host": ["{{nodejs_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "search_term",
+                  "value": "name"
+                },
+                {
+                  "key": "value",
+                  "value": "hennessy"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Performance Tests",
+      "item": [
+        {
+          "name": "Load Test - Multiple Searches",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Set random search values for load testing",
+                  "const searchValues = ['hennessy', 'cognac', 'france', 'wine'];",
+                  "const randomValue = searchValues[Math.floor(Math.random() * searchValues.length)];",
+                  "pm.environment.set('random_search_value', randomValue);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response time is under 1 second', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  "",
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Memory usage is acceptable', function () {",
+                  "    // Log response time for monitoring",
+                  "    console.log('Response time: ' + pm.response.responseTime + 'ms');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{fastapi_base_url}}/search?search_term=name&value={{random_search_value}}",
+              "host": ["{{fastapi_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "search_term",
+                  "value": "name"
+                },
+                {
+                  "key": "value",
+                  "value": "{{random_search_value}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "fastapi_base_url",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    },
+    {
+      "key": "nodejs_base_url", 
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}

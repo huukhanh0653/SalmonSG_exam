@@ -34,13 +34,29 @@ initializeWineData().then((success) => {
     
     // Endpoint API fuzzy search
     app.post("/search", (req, res) => {
-        const { search_term, value } = req.query;
+        let { search_term, value } = req.query;
         
         if (!search_term || !value) {
             return res.status(400).json({ 
                 error: "Missing required query parameters: 'search_term' and 'value'" 
             });
         }
+
+        if (typeof search_term !== "string" || typeof value !== "string") {
+            return res.status(400).json({ 
+                error: "'search_term' and 'value' must be strings"
+            });
+        }
+
+        if (search_term.trim() === "" || value.trim() === "") {
+            return res.status(400).json({ 
+                error: "'search_term' and 'value' cannot be empty strings"
+             });
+        }
+
+        if (search_term === "name") {
+            search_term = "full_name";
+        } 
 
         try {
             if (!wineInstance.isLoaded) {
