@@ -1,0 +1,43 @@
+wine_id,full_name,brand,type,origin,alcohol_content,price,year
+1,Hennessy Very Special Cognac,Hennessy,Cognac,France,40%,2500000,2023
+2,Hennessy Paradis Imperial,Hennessy,Cognac,France,40%,75000000,2023
+3,Hennessy XO Cognac,Hennessy,Cognac,France,40%,6500000,2023
+4,Remy Martin XO,Remy Martin,Cognac,France,40%,5500000,2023
+5,Remy Martin VSOP,Remy Martin,Cognac,France,40%,3200000,2023
+6,Martell Cordon Bleu,Martell,Cognac,France,40%,2800000,2023
+7,Chivas Regal 12 Years Old,Chivas Regal,Blended Scotch Whisky,Scotland,40%,1800000,2023
+8,Chivas Regal 18 Years Old,Chivas Regal,Blended Scotch Whisky,Scotland,40%,4200000,2023
+9,Chivas Regal 25 Years Old,Chivas Regal,Blended Scotch Whisky,Scotland,40%,12000000,2023
+10,Macallan 12 Years Sherry Oak,Macallan,Single Malt Scotch,Scotland,40%,3500000,2023
+11,Macallan 18 Years Sherry Oak,Macallan,Single Malt Scotch,Scotland,43%,15000000,2005
+12,Macallan 25 Years Sherry Oak,Macallan,Single Malt Scotch,Scotland,43%,45000000,1998
+13,Johnnie Walker Blue Label,Johnnie Walker,Blended Scotch Whisky,Scotland,40%,4500000,2023
+14,Johnnie Walker Black Label,Johnnie Walker,Blended Scotch Whisky,Scotland,40%,1200000,2023
+15,Glenfiddich 12 Year Old,Glenfiddich,Single Malt Scotch,Scotland,40%,1800000,2023
+16,Glenfiddich 18 Year Old,Glenfiddich,Single Malt Scotch,Scotland,40%,4500000,2005
+17,Glenfiddich 21 Year Old,Glenfiddich,Single Malt Scotch,Scotland,40%,6000000,2002
+18,Dom Perignon Vintage Champagne,Dom Perignon,Champagne,France,12.50%,8000000,2014
+19,Dom Perignon Rose Vintage,Dom Perignon,Champagne,France,12.50%,12000000,2012
+20,Krug Grande Cuvée,Krug,Champagne,France,12%,10000000,2023
+21,Veuve Clicquot Yellow Label,Veuve Clicquot,Champagne,France,12%,3500000,2023
+22,Moet & Chandon Imperial,Moet & Chandon,Champagne,France,12%,2800000,2023
+23,Grey Goose Vodka,Grey Goose,Vodka,France,40%,1200000,2023
+24,Beluga Gold Line Vodka,Beluga,Vodka,Russia,40%,3500000,2023
+25,Absolut Vodka Original,Absolut,Vodka,Sweden,40%,800000,2023
+26,Smirnoff Red Label Vodka,Smirnoff,Vodka,UK,37.50%,600000,2023
+27,Chateau Margaux 2010,Chateau Margaux,Red Wine,France,13.50%,25000000,2010
+28,Chateau Lafite Rothschild 2009,Chateau Lafite,Red Wine,France,13%,35000000,2009
+29,Opus One 2018,Opus One,Red Wine,USA,14.50%,18000000,2018
+30,Caymus Cabernet Sauvignon,Caymus,Red Wine,USA,14.80%,3200000,2021
+31,Tanqueray London Dry Gin,Tanqueray,Gin,UK,47.30%,900000,2023
+32,Hendrick's Gin,Hendrick's,Gin,Scotland,44%,1400000,2023
+33,Bombay Sapphire Gin,Bombay Sapphire,Gin,UK,47%,800000,2023
+34,Bacardi Superior White Rum,Bacardi,Rum,Puerto Rico,40%,700000,2023
+35,Captain Morgan Spiced Rum,Captain Morgan,Rum,Jamaica,35%,650000,2023
+36,Ron Zacapa 23 Sistema Solera,Ron Zacapa,Rum,Guatemala,40%,4500000,2023
+37,Hibiki Japanese Harmony,Hibiki,Japanese Whisky,Japan,43%,8500000,2023
+38,Yamazaki 12 Year Old,Yamazaki,Japanese Whisky,Japan,43%,12000000,2023
+39,Nikka From The Barrel,Nikka,Japanese Whisky,Japan,51.40%,2800000,2023
+40,Don Julio 1942 Tequila,Don Julio,Tequila,Mexico,38%,8500000,2023
+41,Patron Silver Tequila,Patron,Tequila,Mexico,40%,2200000,2023
+42,Jose Cuervo Especial Gold,Jose Cuervo,Tequila,Mexico,38%,800000,2023
