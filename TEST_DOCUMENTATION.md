@@ -1,8 +1,8 @@
 # Wine Search API - Test Documentation
 
-## 🧪 Automated Testing với Postman và Newman
+## 🧪 Automated Testing with Postman and Newman
 
-Hệ thống test tự động được thiết kế để kiểm tra cả FastAPI service và Node.js service với các test cases toàn diện.
+The automated testing system is designed to test both FastAPI service and Node.js service with comprehensive test cases.
 
 ## 📁 Test Files
 
@@ -14,18 +14,18 @@ SalmonTechTest/
 ├── run-tests.sh                                      # Linux/Mac test runner  
 ├── package.json                                      # Newman dependencies
 └── test-results/                                     # Test reports (auto-generated)
-    ├── test-report.html
-    └── test-results.json
+  ├── test-report.html
+  └── test-results.json
 ```
 
-## 🚀 Cách chạy tests
+## 🚀 How to Run Tests
 
-### Bước 1: Cài đặt Newman (Postman CLI)
+### Step 1: Install Newman (Postman CLI)
 ```bash
 npm install -g newman
 ```
 
-### Bước 2: Khởi động các services
+### Step 2: Start Services
 ```bash
 # Terminal 1 - Node.js service
 cd Nodejs
@@ -36,7 +36,7 @@ cd FastAPI
 python main.py
 ```
 
-### Bước 3: Chạy automated tests
+### Step 3: Run Automated Tests
 
 **Windows:**
 ```cmd
@@ -52,8 +52,8 @@ chmod +x run-tests.sh
 **Manual Newman command:**
 ```bash
 newman run wine-search-api-tests.postman_collection.json \
-    --environment wine-search-test-environment.postman_environment.json \
-    --reporters html,cli
+  --environment wine-search-test-environment.postman_environment.json \
+  --reporters html,cli
 ```
 
 ## 📊 Test Categories
@@ -76,7 +76,7 @@ newman run wine-search-api-tests.postman_collection.json \
 - ✅ Load testing with random search values
 - ✅ Memory usage monitoring
 
-## 📋 Test Cases Chi Tiết
+## 📋 Detailed Test Cases
 
 ### ✅ Functional Tests
 
@@ -210,22 +210,22 @@ name: API Tests
 on: [push, pull_request]
 jobs:
   test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-    - name: Install Newman
-      run: npm install -g newman
-    - name: Start Services
-      run: |
-        cd Nodejs && npm install && npm start &
-        cd ../FastAPI && pip install -r requirements.txt && python main.py &
-        sleep 10
-    - name: Run Tests
-      run: newman run wine-search-api-tests.postman_collection.json --environment wine-search-test-environment.postman_environment.json
+  runs-on: ubuntu-latest
+  steps:
+  - uses: actions/checkout@v2
+  - name: Setup Node.js
+    uses: actions/setup-node@v2
+    with:
+    node-version: '16'
+  - name: Install Newman
+    run: npm install -g newman
+  - name: Start Services
+    run: |
+    cd Nodejs && npm install && npm start &
+    cd ../FastAPI && pip install -r requirements.txt && python main.py &
+    sleep 10
+  - name: Run Tests
+    run: newman run wine-search-api-tests.postman_collection.json --environment wine-search-test-environment.postman_environment.json
 ```
 
 ## 📊 Test Metrics
@@ -245,6 +245,6 @@ jobs:
 
 ---
 
-**Tác giả:** GitHub Copilot  
-**Phiên bản:** 1.0.0  
-**Cập nhật:** September 2025
+**Author:** GitHub Copilot  
+**Version:** 1.0.0  
+**Updated:** September 2025
